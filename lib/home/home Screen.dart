@@ -3,6 +3,24 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../Model/product Model.dart';
 
+List<String> productList = [
+  "Magazines",
+  "Toothpaste",
+  "Food",
+  "Candy",
+  "Laundry detergent",
+  "Shampoo",
+];
+List<String> productPrice = [
+  "600",
+  "300",
+  "100",
+  "50",
+  "500",
+  "800",
+];
+
+
 productModel p1 = productModel();
 TextEditingController txtproname = TextEditingController();
 TextEditingController txtproprice = TextEditingController();
@@ -15,7 +33,6 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
-  List<productModel> productList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +56,11 @@ class _homeScreenState extends State<homeScreen> {
           child: Center(
             child: Column(
               children: [
-            //
+            itemList(0, productList[0], productPrice[0]),
+            itemList(1, productList[1], productPrice[1]),
+            itemList(2, productList[2], productPrice[2]),
+            itemList(3, productList[3], productPrice[3]),
+            itemList(4, productList[4], productPrice[4]),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -72,18 +93,32 @@ class _homeScreenState extends State<homeScreen> {
                                           hintStyle: GoogleFonts.tinos()),
                                     ),
                                     SizedBox(height: 20),
+                                    InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            Navigator.pop(context);
+                                            p1.proname = txtproname.text as List?;
+                                            p1.proprice = txtproprice.text as List?;
+                                          });
 
+                                        },
+                                        child: Center(
+                                            child: Container(
+                                              height: 30,
+                                              width: 100,
+                                              decoration: BoxDecoration(color: Colors.black),
+                                              child: Center(
+                                                child: Text("Submit",
+                                                    style:
+                                                    GoogleFonts.tinos(fontSize: 25, color: Colors.white)),
+                                              ),
+                                            ))),
                                   ],
                                 ),
                               ),
                             ),
                           ),);
-                          setState(() {
-                            ListView.builder(itemBuilder: (context, index) => itemList(index, txtproname.text as String, txtproname.text as String),);
-                          });
                         });
-                            //     },
-                            // ),
                       },
                       child: Container(
                         height: 50,
@@ -104,7 +139,8 @@ class _homeScreenState extends State<homeScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, 'invoiceScreen');
+                        productModel p1 = productModel(proname: productList,proprice: productPrice);
+                        Navigator.pushNamed(context, 'invoiceScreen',arguments: p1);
                       },
                       child: Container(
                         height: 50,
