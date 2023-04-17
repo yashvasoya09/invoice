@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invoice/Model/product%20Model.dart';
-import 'package:invoice/home/home%20Screen.dart';
 
 class invoiceScreen extends StatefulWidget {
   const invoiceScreen({Key? key}) : super(key: key);
@@ -11,10 +10,10 @@ class invoiceScreen extends StatefulWidget {
 }
 
 class _invoiceScreenState extends State<invoiceScreen> {
-  productModel p1 = productModel();
 
   @override
   Widget build(BuildContext context) {
+    productModel p1 = ModalRoute.of(context)!.settings.arguments as productModel;
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
@@ -77,8 +76,7 @@ class _invoiceScreenState extends State<invoiceScreen> {
                                 style: GoogleFonts.tinos(fontSize: 20))),
                       ),
                       SizedBox(height: 15),
-                      for(int i=0;i<5;i++)
-                        Text("${productList[i]}", style: GoogleFonts.tinos(fontSize: 18)),
+                          Text("${p1.proname}", style: GoogleFonts.tinos(fontSize: 18)),
                     ],
                   ),
                   Column(
@@ -92,9 +90,11 @@ class _invoiceScreenState extends State<invoiceScreen> {
                                 style: GoogleFonts.tinos(fontSize: 20))),
                       ),
                       SizedBox(height: 15),
-                      for(int i=0;i<5;i++)
-
-                        Text("${productPrice[i]}",style: GoogleFonts.tinos(fontSize: 18)),
+                        Expanded(
+                          child: ListView.builder(shrinkWrap: false ,itemBuilder: (context, index) {
+                            return Text("${p1.proprice}",style: GoogleFonts.tinos(fontSize: 18));
+                          },),
+                        ),
 
                     ],
                   ),
@@ -110,7 +110,6 @@ class _invoiceScreenState extends State<invoiceScreen> {
                                 style: GoogleFonts.tinos(fontSize: 20))),
                       ),
                       SizedBox(height: 15),
-                      for(int i=0;i<5;i++)
                         Text("1",style: GoogleFonts.tinos(fontSize: 18)),
                     ],
                   ),
@@ -129,8 +128,7 @@ class _invoiceScreenState extends State<invoiceScreen> {
                         ),
                       ),
                       SizedBox(height: 15),
-                      for(int i=0;i<5;i++)
-                        Text("${productPrice[i]}",style: GoogleFonts.tinos(fontSize: 18)),
+                        Text("${p1.proprice}",style: GoogleFonts.tinos(fontSize: 18)),
                     ],
                   ),
                 ],

@@ -1,6 +1,6 @@
 class productModel
 {
-  List? proname,proprice;
+  String? proname,proprice;
 
   productModel({this.proname, this.proprice});
 }

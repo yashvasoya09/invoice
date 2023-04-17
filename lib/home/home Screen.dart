@@ -3,23 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../Model/product Model.dart';
 
-List<String> productList = [
-  "Magazines",
-  "Toothpaste",
-  "Food",
-  "Candy",
-  "Laundry detergent",
-  "Shampoo",
-];
-List<String> productPrice = [
-  "600",
-  "300",
-  "100",
-  "50",
-  "500",
-  "800",
-];
-
+List<productModel> product1 = [];
 
 productModel p1 = productModel();
 TextEditingController txtproname = TextEditingController();
@@ -52,121 +36,120 @@ class _homeScreenState extends State<homeScreen> {
           ),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-            itemList(0, productList[0], productPrice[0]),
-            itemList(1, productList[1], productPrice[1]),
-            itemList(2, productList[2], productPrice[2]),
-            itemList(3, productList[3], productPrice[3]),
-            itemList(4, productList[4], productPrice[4]),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          showDialog(context: context, builder: (context) => Dialog(
-                            child: Container(
-                              height: 300,
-                              width: 300,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextField(
-                                      keyboardType: TextInputType.name,
-                                      controller: txtproname,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          hintText: "Product Name",
-                                          hintStyle: GoogleFonts.tinos()),
-                                    ),
-                                    TextField(
-                                      keyboardType: TextInputType.number,
-                                      controller: txtproprice,
-                                      decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          hintText: "Price",
-                                          hintStyle: GoogleFonts.tinos()),
-                                    ),
-                                    SizedBox(height: 20),
-                                    InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            Navigator.pop(context);
-                                            p1.proname = txtproname.text as List?;
-                                            p1.proprice = txtproprice.text as List?;
-                                          });
+        body: Center(
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(itemCount: product1.length,itemBuilder: (context, index) {
+                  return itemList(index, txtproname.text, txtproprice.text);
+                },),
+              ),
 
-                                        },
-                                        child: Center(
-                                            child: Container(
-                                              height: 30,
-                                              width: 100,
-                                              decoration: BoxDecoration(color: Colors.black),
-                                              child: Center(
-                                                child: Text("Submit",
-                                                    style:
-                                                    GoogleFonts.tinos(fontSize: 25, color: Colors.white)),
-                                              ),
-                                            ))),
-                                  ],
-                                ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        showDialog(context: context, builder: (context) => Dialog(
+                          child: Container(
+                            height: 300,
+                            width: 300,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  TextField(
+                                    keyboardType: TextInputType.name,
+                                    controller: txtproname,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: "Product Name",
+                                        hintStyle: GoogleFonts.tinos()),
+                                  ),
+                                  TextField(
+                                    keyboardType: TextInputType.number,
+                                    controller: txtproprice,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        hintText: "Price",
+                                        hintStyle: GoogleFonts.tinos()),
+                                  ),
+                                  SizedBox(height: 20),
+                                  InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          productModel product = productModel(proname: txtproname.text,proprice: txtproprice.text);
+                                          product1.add(product);
+                                          Navigator.pop(context);
+                                        });
+
+                                      },
+                                      child: Center(
+                                          child: Container(
+                                            height: 30,
+                                            width: 100,
+                                            decoration: BoxDecoration(color: Colors.black),
+                                            child: Center(
+                                              child: Text("Submit",
+                                                  style:
+                                                  GoogleFonts.tinos(fontSize: 25, color: Colors.white)),
+                                            ),
+                                          ))),
+                                ],
                               ),
                             ),
-                          ),);
-                        });
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Product",
-                                style: GoogleFonts.tinos(
-                                    color: Colors.white, fontSize: 25)),
-                            Icon(Icons.add, color: Colors.white),
-                          ],
-                        ),
+                          ),
+                        ),);
+                      });
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Product",
+                              style: GoogleFonts.tinos(
+                                  color: Colors.white, fontSize: 25)),
+                          Icon(Icons.add, color: Colors.white),
+                        ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        productModel p1 = productModel(proname: productList,proprice: productPrice);
-                        Navigator.pushNamed(context, 'invoiceScreen',arguments: p1);
-                      },
-                      child: Container(
-                        height: 50,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Invoice",
-                                style: GoogleFonts.tinos(
-                                    color: Colors.white, fontSize: 25)),
-                            Icon(Icons.download, color: Colors.white),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      productModel p2 = productModel(proname: txtproname.text,proprice: txtproprice.text);
+                      Navigator.pushNamed(context, 'invoiceScreen',arguments: p2);
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Invoice",
+                              style: GoogleFonts.tinos(
+                                  color: Colors.white, fontSize: 25)),
+                          Icon(Icons.download, color: Colors.white),
 
 
-                          ],
-                        ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
 
-                SizedBox(height: 20),
-              ],
-            ),
+            ],
           ),
         ),
       ),
