@@ -33,8 +33,10 @@ class _invoiceScreenState extends State<invoiceScreen> {
           elevation: 0),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
+        child: Stack(
+          children:[
+            Image.asset("assets/images/bg1.jpeg"),
+            Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10),
@@ -90,12 +92,12 @@ class _invoiceScreenState extends State<invoiceScreen> {
                                 style: GoogleFonts.tinos(fontSize: 20))),
                       ),
                       SizedBox(height: 15),
-                        Expanded(
-                          child: ListView.builder(shrinkWrap: false ,itemBuilder: (context, index) {
-                            return Text("${p1.proprice}",style: GoogleFonts.tinos(fontSize: 18));
-                          },),
-                        ),
-
+                        // Expanded(
+                        //     child: ListView.builder(shrinkWrap: true,itemBuilder: (context, index) {
+                        //     return Text("${p1.proprice}",style: GoogleFonts.tinos(fontSize: 18));
+                        //   },),
+                        // ),
+                      Text("${p1.proprice}",style: GoogleFonts.tinos(fontSize: 18)),
                     ],
                   ),
                   SizedBox(width: 10),
@@ -146,6 +148,7 @@ class _invoiceScreenState extends State<invoiceScreen> {
               SizedBox(height: 15),
               Center(child: Text("Welcome Again",style: GoogleFonts.tangerine(fontSize: 30)),),],
           ),
+        ],
         ),
       ),
     );

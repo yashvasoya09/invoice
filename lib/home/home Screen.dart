@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../Model/product Model.dart';
 
 List<productModel> product1 = [];
+int? Index;
 
 productModel p1 = productModel();
 TextEditingController txtproname = TextEditingController();
@@ -124,6 +125,7 @@ class _homeScreenState extends State<homeScreen> {
                   ),
                   InkWell(
                     onTap: () {
+
                       productModel p2 = productModel(proname: txtproname.text,proprice: txtproprice.text);
                       Navigator.pushNamed(context, 'invoiceScreen',arguments: p2);
                     },
